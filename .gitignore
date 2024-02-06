@@ -17,3 +17,8 @@
 Ecom.ProductService/Ecom.ProductService.Contracts/.vs
 Ecom.ProductService/Ecom.ProductService.Contracts/bin
 Ecom.ProductService/Ecom.ProductService.Contracts/obj
+**/bin/
+**/obj/
+**/Dockerfile
+**/NuGet.Config
+**/*.dll

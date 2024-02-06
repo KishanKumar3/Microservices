@@ -17,7 +17,7 @@ namespace Ecom.ProductService.Controllers
         public ItemsController(IRepository<Item> itemsRepository, IPublishEndpoint publishEndpoint)
         {
             this.itemsRepository = itemsRepository;
-            this.publishEndpoint = publishEndpoint;
+            this.publishEndpoint = publishEndpoint; 
         }
 
         [HttpGet]

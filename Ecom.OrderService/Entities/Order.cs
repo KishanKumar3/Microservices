@@ -6,7 +6,7 @@ namespace Ecom.OrderService.Entities
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        public double Amount { get; set; }
+        public decimal Amount { get; set; }
         public List<OrderItem> OrderItems { get; set; }
     }
 }
