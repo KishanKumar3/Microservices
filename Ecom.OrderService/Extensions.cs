@@ -5,9 +5,10 @@ namespace Ecom.OrderService
 {
     public static class Extensions
     {
-        public static OrderItemDto AsDto(this OrderItem item, string name , decimal price)
+
+        public static CatalogItemDto AsDto(this CatalogItem item)
         {
-            return new OrderItemDto(item.Id,item.CatalogItemId, name, price, item.Quantity);
+            return new CatalogItemDto(item.Id, item.Name, item.Price);
         }
     }
 }

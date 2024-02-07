@@ -1,7 +1,9 @@
 
 
 using Ecom.Common;
+using Ecom.Inventory.Contracts;
 using Ecom.Inventory.Entities;
+using MassTransit;
 using MassTransit.Initializers;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,11 +17,13 @@ namespace Ecom.Inventory.Controllers
     {
         private readonly ILogger<InventoryController> _logger;
         private readonly IRepository<InventoryItem> _inventoryRepository;
+        private readonly IPublishEndpoint publishEndpoint;
 
-        public InventoryController(ILogger<InventoryController> logger, IRepository<InventoryItem> inventoryRepository)
+        public InventoryController(ILogger<InventoryController> logger, IRepository<InventoryItem> inventoryRepository, IPublishEndpoint publishEndpoint)
         {
             _logger = logger;
             _inventoryRepository = inventoryRepository;
+            this.publishEndpoint = publishEndpoint;
         }
 
         [HttpGet("{productId}")]
@@ -42,12 +46,14 @@ namespace Ecom.Inventory.Controllers
             {
                 var newInventoryItem = new InventoryItem
                 {
-                    Id = Guid.NewGuid(),
+                    Id = inventoryItem.Id,
                     Quantity = updateInventoryItemQuantity.Quantity,
                     ProductId = productId,
                     LastUpdated = DateTimeOffset.UtcNow
                 };
                 await _inventoryRepository.CreateAsync(newInventoryItem);
+
+                await publishEndpoint.Publish(new InventoryUpdatedItem(newInventoryItem.Id,newInventoryItem.ProductId, newInventoryItem.Quantity));
                 return Ok(newInventoryItem.AsDto());
                 // return Ok((await _inventoryRepository.GetAsync(newInventoryItem.ProductId)).AsDto());
             }
@@ -61,6 +67,7 @@ namespace Ecom.Inventory.Controllers
                     LastUpdated = DateTimeOffset.UtcNow
                 };
                 await _inventoryRepository.UpdateAsync(newInventoryItem);
+                await publishEndpoint.Publish(new InventoryUpdatedItem(newInventoryItem.Id, newInventoryItem.ProductId, newInventoryItem.Quantity));
             }
             return Ok((await _inventoryRepository.GetAsync(item => item.ProductId == productId)).AsDto());
         }

@@ -24,8 +24,8 @@ namespace Ecom.CartService.Consumer
             {
                 await repository.UpdateAsync(new InventoryItem
                 {
-                    Id = item.Id,
-                    ProductId = item.ProductId,
+                    Id = message.Id,
+                    ProductId = message.ProductId,
                     Quantity = message.Quantity
                 });
             }
@@ -33,7 +33,7 @@ namespace Ecom.CartService.Consumer
             {
                 await repository.CreateAsync(new InventoryItem
                 {
-                    Id = Guid.NewGuid(),
+                    Id = message.Id,
                     ProductId = message.ProductId,
                     Quantity = message.Quantity
                 });

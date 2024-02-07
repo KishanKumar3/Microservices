@@ -22,7 +22,6 @@ namespace Ecom.CartService.Consumers
 
             var item = new InventoryItem
             {
-                Id = Guid.NewGuid(),
                 LastUpdated = DateTimeOffset.UtcNow,
                 ProductId = message.ItemId,
                 Quantity = 0
@@ -31,7 +30,7 @@ namespace Ecom.CartService.Consumers
             await repository.CreateAsync(item);
 
             await publishEndpoint.Publish(new InventoryUpdatedItem(
-                item.ProductId, item.Quantity
+                item.Id,item.ProductId, item.Quantity
             ));
         }
     }
