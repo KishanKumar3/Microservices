@@ -26,19 +26,19 @@ services:
     networks:
       - my_network
 
-  ecomproductservice:
-    image: ecomproductservice:latest
-    build:
-      context: ../Ecom.ProductService
-      dockerfile: Dockerfile
-    networks:
-      - my_network
-    depends_on:
-      - rabbitmq
-      - mongo
-    ports:
-      - 5000:80
-      - 5001:443
+  # ecomproductservice:
+  #   image: ecomproductservice:latest
+  #   build:
+  #     context: ../Ecom.ProductService
+  #     dockerfile: Dockerfile
+  #   networks:
+  #     - my_network
+  #   depends_on:
+  #     - rabbitmq
+  #     - mongo
+  #   ports:
+  #     - 5000:80
+  #     - 5001:443
 
 volumes:
   mongodbdata:

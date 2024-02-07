@@ -43,11 +43,11 @@ namespace Ecom.Inventory.Consumers
                 {
                     Id = inventoryItem.Id,
                     LastUpdated = DateTimeOffset.UtcNow,
-                    ProductId = productId,
+                    ProductId = inventoryItem.ProductId,
                     Quantity = inventoryItem.Quantity - orderItem.Quantity
                 });
 
-                await publishEndpoint.Publish(new InventoryUpdatedItem(productId, inventoryItem.Quantity - orderItem.Quantity));
+                await publishEndpoint.Publish(new InventoryUpdatedItem(inventoryItem.Id,inventoryItem.ProductId, inventoryItem.Quantity - orderItem.Quantity));
             }
         }
     }

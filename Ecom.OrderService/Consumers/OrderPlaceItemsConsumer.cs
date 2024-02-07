@@ -9,13 +9,12 @@ namespace Ecom.OrderService.Consumers
 {
     public class OrderPlaceItemsConsumer : IConsumer<PlaceOrderItems>
     {
-        private readonly IRepository<OrderItem> orderItemsRepository;
+        
         private readonly IRepository<CatalogItem> catalogItemsRepository;
         private readonly IRepository<Order> ordersRepository;
 
-        public OrderPlaceItemsConsumer(IRepository<OrderItem> orderItemsRepository, IRepository<CatalogItem> catalogItemsRepository, IRepository<Order> ordersRepository)
+        public OrderPlaceItemsConsumer(IRepository<CatalogItem> catalogItemsRepository, IRepository<Order> ordersRepository)
         {
-            this.orderItemsRepository = orderItemsRepository;
             this.catalogItemsRepository = catalogItemsRepository;
             this.ordersRepository = ordersRepository;
         }
@@ -29,7 +28,8 @@ namespace Ecom.OrderService.Consumers
             {
                 Id = newOrderId,
                 Amount = totalAmount,
-                UserId = buyer
+                UserId = buyer,
+                OrderDate = DateTimeOffset.UtcNow
             };
             foreach (var orderItem in message.cartItems)
             {
@@ -44,12 +44,16 @@ namespace Ecom.OrderService.Consumers
                     Quantity = orderItem.Quantity
                 };
                 orders.OrderItems.Add(orderItemEntity);
-                await catalogItemsRepository.CreateAsync(new CatalogItem
+                var catalogItem = await catalogItemsRepository.GetAsync(catalogItem => catalogItem.Id == productId);
+                if(catalogItem == null)
                 {
-                    Id = productId,
-                    Name = orderItem.Name,
-                    Price = orderItem.Price
-                });
+                    await catalogItemsRepository.CreateAsync(new CatalogItem
+                    {
+                        Id = productId,
+                        Name = orderItem.Name,
+                        Price = orderItem.Price
+                    });
+                }
                 // await repository.UpdateAsync(new InventoryItem
                 // {
                 //     Id = inventoryItem.Id,
@@ -58,6 +62,8 @@ namespace Ecom.OrderService.Consumers
                 //     Quantity = inventoryItem.Quantity - orderItem.Quantity
                 // });
             }
+            // adding orders to the database for a user
+            await ordersRepository.CreateAsync(orders);
         }
     }
 }
