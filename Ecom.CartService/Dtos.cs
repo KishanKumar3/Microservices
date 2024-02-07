@@ -8,5 +8,6 @@ namespace Ecom.CartService
         public record CartItemDto(Guid CatalogItemId, string Name, string Description, decimal Price, int Quantity, DateTimeOffset AcquiredDate);
 
         public record CatalogItemDto(Guid Id, string Name, string Description, decimal Price);
+        
     }
 }

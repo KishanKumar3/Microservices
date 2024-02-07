@@ -10,7 +10,7 @@
         }
       ],
       "UpstreamPathTemplate": "/ProductItems",
-      "UpstreamHttpMethod": [ "GET" , "POST"]
+      "UpstreamHttpMethod": ["GET", "POST"]
     },
     {
       "DownstreamPathTemplate": "/items/{id}",
@@ -22,7 +22,7 @@
         }
       ],
       "UpstreamPathTemplate": "/ProductItems/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ]
+      "UpstreamHttpMethod": ["GET", "PUT", "DELETE"]
     },
     {
       "DownstreamPathTemplate": "/Items?userId={userId}",
@@ -34,7 +34,7 @@
         }
       ],
       "UpstreamPathTemplate": "/CartItems/{userId}",
-      "UpstreamHttpMethod": [ "GET" ]
+      "UpstreamHttpMethod": ["GET"]
     },
     {
       "DownstreamPathTemplate": "/Items",
@@ -46,10 +46,20 @@
         }
       ],
       "UpstreamPathTemplate": "/CartItems",
-      "UpstreamHttpMethod": [ "POST" ]
+      "UpstreamHttpMethod": ["POST"]
+    },
+    {
+      "DownstreamPathTemplate": "/Inventory/{productId}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7261
+        }
+      ],
+      "UpstreamPathTemplate": "/Inventory/{productId}",
+      "UpstreamHttpMethod": ["GET", "PUT"]
     }
-
-
   ],
   "GlobalConfiguration": {
     "BaseUrl": "https://localhost:7031"

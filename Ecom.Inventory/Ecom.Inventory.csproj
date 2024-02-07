@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>    
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute> 
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ecom.Cart.Contracts" Version="1.0.1" />
+    <PackageReference Include="Ecom.Common" Version="1.0.1" />
+    <PackageReference Include="Ecom.ProductService.Contracts" Version="1.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+</Project>

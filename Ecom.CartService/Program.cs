@@ -12,6 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddMongo()
                 .AddMongoRepository<CartItem>("cartitems")
                 .AddMongoRepository<CatalogItem>("catalogitems")
+                .AddMongoRepository<InventoryItem>("inventoryItems")
                 .AddMassTransitWithRabbitMq();
 
 AddCatalogClient(builder);

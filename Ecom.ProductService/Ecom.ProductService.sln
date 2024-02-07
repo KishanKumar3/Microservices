@@ -5,7 +5,7 @@ VisualStudioVersion = 17.6.33801.468
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecom.ProductService", "Ecom.ProductService.csproj", "{5DF9B505-DB4C-4A07-A053-77D41EAA9CF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecom.ProductService.Contracts", "Ecom.ProductService.Contracts\Ecom.ProductService.Contracts.csproj", "{9150619B-DE5A-41D9-A54D-0916500AC5D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecom.ProductService.Contracts", "Ecom.ProductService.Contracts\Ecom.ProductService.Contracts.csproj", "{9150619B-DE5A-41D9-A54D-0916500AC5D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

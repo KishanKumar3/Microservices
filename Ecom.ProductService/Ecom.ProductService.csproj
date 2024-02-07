@@ -6,10 +6,15 @@
     <ImplicitUsings>enable</ImplicitUsings>
 	  <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
 	  <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	  <UserSecretsId>37470e22-74b0-4120-9df9-038d38414c32</UserSecretsId>
+	  <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+	  <DockerfileContext>.</DockerfileContext>
+	  <DockerComposeProjectPath>docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Ecom.Common" Version="1.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 
