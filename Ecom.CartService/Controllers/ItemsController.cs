@@ -143,7 +143,7 @@ namespace Ecom.CartService.Controllers
 
             return Ok();
         }
-
+        // Items/Checkout
         [HttpPost("Checkout")]
         public async Task<ActionResult> CheckoutAsync()
         {
