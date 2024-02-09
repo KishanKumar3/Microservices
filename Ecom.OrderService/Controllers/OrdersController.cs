@@ -1,6 +1,8 @@
 ﻿using Ecom.Common;
 using Ecom.OrderService.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Linq.Expressions;
 using static Ecom.OrderService.Dtos;
 
@@ -8,6 +10,7 @@ namespace Ecom.OrderService.Controllers
 {
     [ApiController]
     [Route("Orders")]
+    [Authorize]
     public class OrdersController : ControllerBase
     {
         private readonly IRepository<Order> orderRepository;
@@ -20,9 +23,24 @@ namespace Ecom.OrderService.Controllers
             this.catalogItemRepository = catalogItemRepository;
         }
 
-        [HttpGet("{userId}")]
-        public async Task<ActionResult<OrderDetailDto>> GetByIdAsync(Guid userId)
+        private Guid GetUserIdFromClaims()
         {
+            // Get userId from "user-id" claim
+            var userIdClaim = HttpContext.User.FindFirst("user-id");
+            if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out var userId))
+            {
+                // Invalid or missing userId claim
+                throw new InvalidOperationException("Invalid or missing user ID claim.");
+            }
+
+            return userId;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<OrderDetailDto>> GetByIdAsync()
+        {
+            var userId = GetUserIdFromClaims();
+
             try
             {
                 var orders = await GetOrdersOfUser(userId);

@@ -8,7 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Ecom.Cart.Contracts" Version="1.0.3" />
-    <PackageReference Include="Ecom.Common" Version="1.0.1" />
+    <PackageReference Include="Ecom.Common" Version="1.0.4" />
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 

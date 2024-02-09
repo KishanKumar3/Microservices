@@ -1,0 +1,59 @@
+{
+  "SwaggerEndPoints": [
+    {
+      "Key": "gateway",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Ecom.APIGateway",
+          "Version": "1.0",
+          "Url": "https://localhost:7031/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "product",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Ecom.ProductService",
+          "Version": "1.0",
+          "Url": "https://localhost:5001/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "cart",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Ecom.CartService",
+          "Version": "1.0",
+          "Url": "https://localhost:5005/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "order",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Ecom.OrderService",
+          "Version": "1.0",
+          "Url": "https://localhost:7140/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "inventory",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Ecom.InventoryService",
+          "Version": "1.0",
+          "Url": "https://localhost:7261/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}

@@ -52,11 +52,15 @@
             },
             "Ecom.Common": {
               "target": "Package",
-              "version": "[1.0.1, )"
+              "version": "[1.0.4, )"
             },
             "Ecom.ProductService.Contracts": {
               "target": "Package",
               "version": "[1.0.0, )"
+            },
+            "IdentityServer4.AccessTokenValidation": {
+              "target": "Package",
+              "version": "[3.0.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

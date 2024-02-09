@@ -5,14 +5,16 @@ using Ecom.Inventory.Contracts;
 using Ecom.Inventory.Entities;
 using MassTransit;
 using MassTransit.Initializers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 
 namespace Ecom.Inventory.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-
+    [Route("Inventory")]
+    [Authorize(Roles = "admin")]
     public class InventoryController : ControllerBase
     {
         private readonly ILogger<InventoryController> _logger;

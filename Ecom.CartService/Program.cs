@@ -4,10 +4,14 @@ using Ecom.Common.MassTransit;
 using Ecom.Common.MongoDB;
 using Polly;
 using Polly.Timeout;
+using Steeltoe.Discovery.Client;
+using Steeltoe.Discovery.Eureka;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddServiceDiscovery(o => o.UseEureka());
 
 builder.Services.AddMongo()
                 .AddMongoRepository<CartItem>("cartitems")
@@ -16,6 +20,21 @@ builder.Services.AddMongo()
                 .AddMassTransitWithRabbitMq();
 
 AddCatalogClient(builder);
+
+builder.Services.AddAuthentication("Bearer")
+.AddIdentityServerAuthentication("Bearer", options =>
+{
+    options.Authority = "https://localhost:5443";
+    options.ApiName = "EComAPI";
+});
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:5443");
+    });
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -32,6 +51,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 
