@@ -1,0 +1,12 @@
+﻿body {
+    
+}
+.bgImg {
+    max-width:146%;
+}
+.img-login {
+    max-width:134%;
+}
+shadow {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
