@@ -1,10 +1,12 @@
 ﻿// using Ecom.Cart.Contracts;
 // using Ecom.Cart.Contracts.Dtos;
+using System.Data;
 using System.Linq.Expressions;
 using Ecom.Cart.Contracts;
 using Ecom.CartService.Entities;
 using Ecom.Common;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver.Core.Operations;
 using static Ecom.CartService.Dtos;
@@ -13,6 +15,7 @@ namespace Ecom.CartService.Controllers
 {
     [ApiController]
     [Route("Items")]
+    [Authorize]
     public class ItemsController : ControllerBase
     {
         private readonly IRepository<CartItem> cartItemsRepository;
@@ -29,10 +32,23 @@ namespace Ecom.CartService.Controllers
             this.inventoryRepository = inventoryRepository;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<CartItemDto>>> GetAsync(Guid userId)
+        private Guid GetUserIdFromClaims()
         {
-            if (userId == Guid.Empty) return BadRequest();
+            // Get userId from "user-id" claim
+            var userIdClaim = HttpContext.User.FindFirst("user-id");
+            if (userIdClaim == null || !Guid.TryParse(userIdClaim.Value, out var userId))
+            {
+                // Invalid or missing userId claim
+                throw new InvalidOperationException("Invalid or missing user ID claim.");
+            }
+
+            return userId;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<CartItemDto>>> GetAsync()
+        {
+            var userId = GetUserIdFromClaims();
 
             var cartItemEntities = await cartItemsRepository.GetAllAsync(item => item.UserId == userId);
             var itemIds = cartItemEntities.Select(item => item.CatalogItemId).ToList();
@@ -55,6 +71,8 @@ namespace Ecom.CartService.Controllers
         [HttpPost]
         public async Task<ActionResult> PostAsync(GrantItemsDto grantItemsDto)
         {
+            var userId = GetUserIdFromClaims();
+
             var inventoryItem = await inventoryRepository.GetAsync(inventoryItem => inventoryItem.ProductId == grantItemsDto.CatalogItemId);
             if (inventoryItem.Quantity < grantItemsDto.Quantity)
             {
@@ -64,14 +82,14 @@ namespace Ecom.CartService.Controllers
                     availableQuantity = inventoryItem.Quantity
                 });
             }
-            var cartItem = await cartItemsRepository.GetAsync(item => item.UserId == grantItemsDto.UserId && item.CatalogItemId == grantItemsDto.CatalogItemId);
+            var cartItem = await cartItemsRepository.GetAsync(item => item.UserId == userId && item.CatalogItemId == grantItemsDto.CatalogItemId);
 
             if (cartItem == null)
             {
                 cartItem = new CartItem
                 {
                     CatalogItemId = grantItemsDto.CatalogItemId,
-                    UserId = grantItemsDto.UserId,
+                    UserId = userId,
                     Quantity = grantItemsDto.Quantity,
                     AcquiredDate = DateTimeOffset.UtcNow
                 };
@@ -86,10 +104,10 @@ namespace Ecom.CartService.Controllers
             return Ok();
         }
 
-        [HttpDelete("{userId}")]
-        public async Task<ActionResult> DeleteCartAsync(Guid userId)
+        [HttpDelete]
+        public async Task<ActionResult> DeleteCartAsync()
         {
-            if (userId == Guid.Empty) return BadRequest();
+            var userId = GetUserIdFromClaims();
 
             var cartItems = await cartItemsRepository.GetAllAsync(item => item.UserId == userId);
 
@@ -108,10 +126,11 @@ namespace Ecom.CartService.Controllers
         }
 
 
-        [HttpDelete("{userId}/{catalogItemId}")]
-        public async Task<ActionResult> DeleteCartItemAsync(Guid userId, Guid catalogItemId)
+        [HttpDelete("/{catalogItemId}")]
+        public async Task<ActionResult> DeleteCartItemAsync(Guid catalogItemId)
         {
-            if (userId == Guid.Empty || catalogItemId == Guid.Empty) return BadRequest();
+            var userId = GetUserIdFromClaims();
+            if (catalogItemId == Guid.Empty) return BadRequest();
 
             var cartItem = await cartItemsRepository.GetAsync(item => item.UserId == userId && item.CatalogItemId == catalogItemId);
 
@@ -124,11 +143,11 @@ namespace Ecom.CartService.Controllers
 
             return Ok();
         }
-
-        [HttpPost("Checkout/{userId}")]
-        public async Task<ActionResult> CheckoutAsync(Guid userId)
+        // Items/Checkout
+        [HttpPost("Checkout")]
+        public async Task<ActionResult> CheckoutAsync()
         {
-            if (userId == Guid.Empty) return BadRequest();
+            var userId = GetUserIdFromClaims();
 
             var cartItems = await cartItemsRepository.GetAllAsync(item => item.UserId == userId);
 

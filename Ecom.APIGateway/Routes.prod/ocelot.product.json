@@ -1,0 +1,63 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/items",
+      "DownstreamScheme": "http",
+      "SwaggerKey": "product",
+      "UseServiceDiscovery": true,
+      "ServiceName": "SERVICE.ECOMPRODUCTSERVICE",
+      "UpstreamPathTemplate": "/product",
+      "UpstreamHttpMethod": [
+        "GET",
+        "POST"
+      ],
+
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "openid", "profile", "EComAPI.read", "roles", "claims" ]
+      },
+
+      /*
+        LeastConnection - tracks which services are dealing with requests and sends new requests to service with least existing requests. The algorythm state is not distributed across a cluster of Ocelot�s.
+        RoundRobin - loops through available services and sends requests. The algorythm state is not distributed across a cluster of Ocelot�s.
+        NoLoadBalancer - takes the first available service from config or service discovery.
+        CookieStickySessions - uses a cookie to stick all requests to a specific server
+      */
+
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      }
+
+    },
+    {
+      "DownstreamPathTemplate": "/items/{id}",
+      "DownstreamScheme": "http",
+      "SwaggerKey": "product",
+      "UseServiceDiscovery": true,
+      "ServiceName": "SERVICE.ECOMPRODUCTSERVICE",
+      "UpstreamPathTemplate": "/product/{id}",
+      "UpstreamHttpMethod": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ],
+
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "openid", "profile", "EComAPI.read", "roles", "claims" ]
+      },
+
+      /*
+        LeastConnection - tracks which services are dealing with requests and sends new requests to service with least existing requests. The algorythm state is not distributed across a cluster of Ocelot�s.
+        RoundRobin - loops through available services and sends requests. The algorythm state is not distributed across a cluster of Ocelot�s.
+        NoLoadBalancer - takes the first available service from config or service discovery.
+        CookieStickySessions - uses a cookie to stick all requests to a specific server
+      */
+
+      "LoadBalancerOptions": {
+        "Type": "LeastConnection"
+      }
+
+    }
+  ]
+}

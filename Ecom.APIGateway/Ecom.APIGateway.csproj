@@ -4,10 +4,20 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>863ae854-6e8d-4265-92ad-059d421247d2</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext>
+    <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
+    <PackageReference Include="MMLib.SwaggerForOcelot" Version="8.1.0" />
     <PackageReference Include="Ocelot" Version="22.0.1" />
+    <PackageReference Include="Ocelot.Provider.Eureka" Version="22.0.1" />
+    <PackageReference Include="Ocelot.Provider.Polly" Version="22.0.1" />
+    <PackageReference Include="Steeltoe.Discovery.Eureka" Version="3.2.6" />
   </ItemGroup>
 
 </Project>

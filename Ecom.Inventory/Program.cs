@@ -2,20 +2,36 @@ using Ecom.Common.MassTransit;
 using Ecom.Common.MongoDB;
 using Ecom.Common.Settings;
 using Ecom.Inventory.Entities;
+using Steeltoe.Discovery.Client;
+using Steeltoe.Discovery.Eureka;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AddServiceDiscovery(o => o.UseEureka());
+
 // var allowedOriginsPolicy = "simpleSpecification";
 var serviceSettings = builder.Configuration.GetSection("ServiceSettings").Get<ServiceSettings>();
 builder.Services.AddMongo().AddMongoRepository<InventoryItem>("InventoryItems").AddMassTransitWithRabbitMq();
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy(name: allowedOriginsPolicy, builder =>
-//     {
-//         builder.WithOrigins("https://localhost:5001").AllowAnyHeader().AllowAnyMethod();
-//     });
-// });
+
+builder.Services.AddAuthentication("Bearer")
+.AddIdentityServerAuthentication("Bearer", options =>
+{
+    options.Authority = "http://identityserver:80";
+    options.ApiName = "EComAPI";
+    options.RequireHttpsMetadata = false;
+});
+
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://identityserver:80");
+    });
+});
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -30,8 +46,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// app.UseCors(allowedOriginsPolicy);
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
+
+app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

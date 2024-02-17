@@ -1,7 +1,9 @@
 ﻿using Ecom.Common;
 using Ecom.ProductService.Entities;
 using MassTransit;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using System.Diagnostics.Contracts;
 using static Ecom.ProductService.Contracts.Contracts;
 using static Ecom.ProductService.Dtos;
@@ -41,6 +43,7 @@ namespace Ecom.ProductService.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<ItemDto>> PostAsync(CreateItemDto createItemDto)
         {
             var item = new Item
@@ -61,6 +64,7 @@ namespace Ecom.ProductService.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> PutAsync(Guid id, UpdateItemDto updateItemDto) { 
             var existingItem = await itemsRepository.GetAsync(id);
             if (existingItem == null)
@@ -83,6 +87,7 @@ namespace Ecom.ProductService.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             var item = await itemsRepository.GetAsync(id);
