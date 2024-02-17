@@ -27,7 +27,6 @@ namespace Ecom.Inventory.Consumers
             {
                 var productId = orderItem.CatalogItemId;
                 var buyQuantity = orderItem.Quantity;
-                var userId = orderItem.UserId;
                 var availableQuantity = (await repository.GetAsync(invItem => invItem.ProductId == productId)).Quantity;
                 if (availableQuantity < buyQuantity)
                 {

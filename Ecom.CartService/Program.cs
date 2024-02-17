@@ -1,7 +1,11 @@
+using System.Net;
 using Ecom.CartService.Clients;
 using Ecom.CartService.Entities;
 using Ecom.Common.MassTransit;
 using Ecom.Common.MongoDB;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Polly;
 using Polly.Timeout;
 using Steeltoe.Discovery.Client;
@@ -24,15 +28,18 @@ AddCatalogClient(builder);
 builder.Services.AddAuthentication("Bearer")
 .AddIdentityServerAuthentication("Bearer", options =>
 {
-    options.Authority = "https://localhost:5443";
+    options.Authority = "http://identityserver:80";
     options.ApiName = "EComAPI";
+    options.RequireHttpsMetadata = false;
 });
+
+IdentityModelEventSource.ShowPII = true; 
 
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy", policy =>
     {
-        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:5443");
+        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://identityserver:80");
     });
 });
 
@@ -50,7 +57,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
 

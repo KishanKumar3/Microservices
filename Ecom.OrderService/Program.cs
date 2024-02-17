@@ -17,15 +17,17 @@ builder.Services.AddMongo().AddMongoRepository<OrderItem>("OrderItems").AddMongo
 builder.Services.AddAuthentication("Bearer")
 .AddIdentityServerAuthentication("Bearer", options =>
 {
-    options.Authority = "https://localhost:5443";
+    options.Authority = "http://identityserver:80";
     options.ApiName = "EComAPI";
+    options.RequireHttpsMetadata = false;
 });
+
 
 builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy", policy =>
     {
-        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:5443");
+        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://identityserver:80");
     });
 });
 
@@ -43,7 +45,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
 

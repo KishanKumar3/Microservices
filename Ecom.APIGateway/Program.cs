@@ -1,4 +1,5 @@
 using Ecom.APIGateway.Config;
+using Microsoft.IdentityModel.Tokens;
 using MMLib.SwaggerForOcelot.DependencyInjection;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
@@ -16,6 +17,7 @@ routes = "Routes.dev";
 routes = "Routes.prod";
 #endif
 ;
+
 
 builder.Configuration.AddOcelotWithSwaggerSupport(options =>
 {
@@ -36,6 +38,24 @@ builder.Host.ConfigureAppConfiguration((hostingContext, config) =>
     .AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true)
     .AddOcelot(routes, builder.Environment)
     .AddEnvironmentVariables();
+});
+
+
+builder.Services.AddAuthentication("Bearer")
+.AddIdentityServerAuthentication("Bearer", options =>
+{
+    options.Authority = "http://identityserver:80";
+    options.ApiName = "EComAPI";
+    options.RequireHttpsMetadata = false;
+});
+
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://identityserver:80");
+    });
 });
 
 builder.Services.AddControllers();
@@ -59,6 +79,10 @@ app.UseSwaggerForOcelotUI(options =>
     options.ReConfigureUpstreamSwaggerJson = AlterUpstream.AlterUpstreamSwaggerJson;
 
 }).UseOcelot().Wait();
+
+app.UseCors("CorsPolicy");
+
+app.UseAuthentication();
 
 app.MapControllers();
 

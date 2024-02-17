@@ -1,15 +1,22 @@
 {
   "Routes": [
     {
-      "DownstreamPathTemplate": "/Orders",
-      "DownstreamScheme": "https",
-      "SwaggerKey": "order",
+      "DownstreamPathTemplate": "/Items",
+      "DownstreamScheme": "http",
+      "SwaggerKey": "cart",
       "UseServiceDiscovery": true,
-      "ServiceName": "SERVICE.Ecom.OrderService",
-      "UpstreamPathTemplate": "/order",
+      "ServiceName": "SERVICE.Ecom.CartService",
+      "UpstreamPathTemplate": "/cart",
       "UpstreamHttpMethod": [
-        "GET"
+        "GET",
+        "POST",
+        "DELETE"
       ],
+
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": [ "openid", "profile", "EComAPI.read", "roles", "claims" ]
+      },
 
       /*
         LeastConnection - tracks which services are dealing with requests and sends new requests to service with least existing requests. The algorythm state is not distributed across a cluster of Ocelot�s.

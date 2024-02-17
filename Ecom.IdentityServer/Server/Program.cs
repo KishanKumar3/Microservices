@@ -16,7 +16,16 @@ if (seed)
 var builder = WebApplication.CreateBuilder(args);
 
 var assembly = typeof(Program).Assembly.GetName().Name;
-var defaultConnString = builder.Configuration.GetConnectionString("DefaultConnection");
+//var defaultConnString = builder.Configuration.GetConnectionString("DefaultConnection");
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
+
+// var dbHost = "127.0.0.1,1433";
+// var dbName = "serverdb";
+// var dbPassword = "Pass123$";
+
+var defaultConnString = $"Data Source={dbHost};Initial Catalog={dbName};User ID=sa;Password={dbPassword}";
 
 if (seed)
 {
@@ -32,7 +41,10 @@ builder.Services.AddDbContext<AspNetIdentityDbContext>(options =>
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AspNetIdentityDbContext>();
 
-builder.Services.AddIdentityServer()
+builder.Services.AddIdentityServer(options =>
+{
+    options.IssuerUri = "http://identityserver:80";
+})
     .AddAspNetIdentity<IdentityUser>()
     .AddProfileService<CustomProfileService>()
     .AddConfigurationStore(options =>

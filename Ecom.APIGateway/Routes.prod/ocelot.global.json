@@ -1,11 +1,11 @@
 {
   "GlobalConfiguration": {
     "RequestIdKey": "OcRequestId",
-    "DownstreamScheme": "https",
+    "DownstreamScheme": "http",
     "UseServiceDiscovery": true,
     "ServiceDiscoveryProvider": {
-      "Host": "localhost",
-      "Port": 8001,
+      "Host": "ecom.apigateway",
+      "Port": 80,
       "Type": "Eureka"
     }
   }

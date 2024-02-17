@@ -8,10 +8,11 @@
     ".NETCoreApp,Version=v6.0": {
       "Ecom.Inventory/1.0.0": {
         "dependencies": {
-          "Ecom.Cart.Contracts": "1.0.1",
+          "Ecom.Cart.Contracts": "1.0.3",
           "Ecom.Common": "1.0.4",
           "Ecom.ProductService.Contracts": "1.0.0",
           "IdentityServer4.AccessTokenValidation": "3.0.1",
+          "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": "1.18.1",
           "Swashbuckle.AspNetCore": "6.5.0"
         },
         "runtime": {
@@ -48,14 +49,14 @@
           }
         }
       },
-      "Ecom.Cart.Contracts/1.0.1": {
+      "Ecom.Cart.Contracts/1.0.3": {
         "dependencies": {
           "Ecom.Common": "1.0.4"
         },
         "runtime": {
           "lib/net6.0/Ecom.Cart.Contracts.dll": {
-            "assemblyVersion": "1.0.1.0",
-            "fileVersion": "1.0.1.0"
+            "assemblyVersion": "1.0.2.0",
+            "fileVersion": "1.0.2.0"
           }
         }
       },
@@ -477,6 +478,7 @@
           }
         }
       },
+      "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.18.1": {},
       "Microsoft.Win32.Registry/5.0.0": {
         "dependencies": {
           "System.Security.AccessControl": "5.0.0",
@@ -877,12 +879,12 @@
       "path": "dnsclient/1.6.1",
       "hashPath": "dnsclient.1.6.1.nupkg.sha512"
     },
-    "Ecom.Cart.Contracts/1.0.1": {
+    "Ecom.Cart.Contracts/1.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-saN7JRPRpwUiT+8lzTI/FGcb+jTU7RvE5H6qzlrFj4U5Ig9g473OT2seqXwqMlMvC1RgQa8uB09kTgEv1U85IA==",
-      "path": "ecom.cart.contracts/1.0.1",
-      "hashPath": "ecom.cart.contracts.1.0.1.nupkg.sha512"
+      "sha512": "sha512-hLWLNvV8FyT1o7kEZltrAXl2QUAccOoEWYaBZDURMaDpF31pzLsL8gDplKYXqj+N57/XBy3se3rMgFfW4G1vbA==",
+      "path": "ecom.cart.contracts/1.0.3",
+      "hashPath": "ecom.cart.contracts.1.0.3.nupkg.sha512"
     },
     "Ecom.Common/1.0.4": {
       "type": "package",
@@ -1205,6 +1207,13 @@
       "sha512": "sha512-Nug3rO+7Kl5/SBAadzSMAVgqDlfGjJZ0GenQrLywJ84XGKO0uRqkunz5Wyl0SDwcR71bAATXvSdbdzPrYRYKGw==",
       "path": "microsoft.openapi/1.2.3",
       "hashPath": "microsoft.openapi.1.2.3.nupkg.sha512"
+    },
+    "Microsoft.VisualStudio.Azure.Containers.Tools.Targets/1.18.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-RtNQEQQ/bgaxzrsZEkPB+/DFaUgNiq8GtZz/R4lt+mKXPcEvEuawlbl0PB1s7ND9kvkUVZtMphPxE9Ma1VGiFg==",
+      "path": "microsoft.visualstudio.azure.containers.tools.targets/1.18.1",
+      "hashPath": "microsoft.visualstudio.azure.containers.tools.targets.1.18.1.nupkg.sha512"
     },
     "Microsoft.Win32.Registry/5.0.0": {
       "type": "package",

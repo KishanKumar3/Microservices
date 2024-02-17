@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "Ttltoxwb6VcnKYPO6raj7YJwNYJYjzyV2QZDyV8R0dJ+xhNKA/b1JXpGI+TOYMGeU6Va+C/pGodWskqFSi1vEA==",
+  "dgSpecHash": "Fk31USY7/9vVRzHbC1qoq1ycCXJ1AXDKYhJhUZkGIpZpzdmNpfTX37rLajtZrktri5USgtUsd4QRKao5fDN8+A==",
   "success": true,
   "projectFilePath": "C:\\Users\\kishankumar01\\Downloads\\Microservices\\Ecom.Inventory\\Ecom.Inventory.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\kishankumar01\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\kishankumar01\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",
     "C:\\Users\\kishankumar01\\.nuget\\packages\\dnsclient\\1.6.1\\dnsclient.1.6.1.nupkg.sha512",
-    "C:\\Users\\kishankumar01\\.nuget\\packages\\ecom.cart.contracts\\1.0.1\\ecom.cart.contracts.1.0.1.nupkg.sha512",
+    "C:\\Users\\kishankumar01\\.nuget\\packages\\ecom.cart.contracts\\1.0.3\\ecom.cart.contracts.1.0.3.nupkg.sha512",
     "C:\\Users\\kishankumar01\\.nuget\\packages\\ecom.common\\1.0.4\\ecom.common.1.0.4.nupkg.sha512",
     "C:\\Users\\kishankumar01\\.nuget\\packages\\ecom.productservice.contracts\\1.0.0\\ecom.productservice.contracts.1.0.0.nupkg.sha512",
     "C:\\Users\\kishankumar01\\.nuget\\packages\\identitymodel\\4.0.0\\identitymodel.4.0.0.nupkg.sha512",
@@ -54,6 +54,7 @@
     "C:\\Users\\kishankumar01\\.nuget\\packages\\microsoft.identitymodel.tokens\\5.5.0\\microsoft.identitymodel.tokens.5.5.0.nupkg.sha512",
     "C:\\Users\\kishankumar01\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\kishankumar01\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\kishankumar01\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.18.1\\microsoft.visualstudio.azure.containers.tools.targets.1.18.1.nupkg.sha512",
     "C:\\Users\\kishankumar01\\.nuget\\packages\\microsoft.win32.registry\\5.0.0\\microsoft.win32.registry.5.0.0.nupkg.sha512",
     "C:\\Users\\kishankumar01\\.nuget\\packages\\mongodb.bson\\2.23.1\\mongodb.bson.2.23.1.nupkg.sha512",
     "C:\\Users\\kishankumar01\\.nuget\\packages\\mongodb.driver\\2.23.1\\mongodb.driver.2.23.1.nupkg.sha512",

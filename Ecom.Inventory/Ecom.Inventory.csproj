@@ -5,14 +5,18 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>    
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute> 
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <UserSecretsId>d9d9f4e8-0e00-410d-b4c3-79cc85c9a322</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>.</DockerfileContext> 
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ecom.Cart.Contracts" Version="1.0.1" />
+    <PackageReference Include="Ecom.Cart.Contracts" Version="1.0.3" />
     <PackageReference Include="Ecom.Common" Version="1.0.4" />
     <PackageReference Include="Ecom.ProductService.Contracts" Version="1.0.0" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="3.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.18.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 </Project>
